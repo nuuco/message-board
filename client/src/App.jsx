@@ -1,10 +1,18 @@
 import React from "react";
+import { Routes, Route } from 'react-router-dom';
+import List from './components/List';
+import Update from "./components/Update";
+import Navi from "./components/Navi";
 
 function App() {
   return (
-    <React.Fragment>
-      <span>Hello React App</span>
-    </React.Fragment>
+    <>
+    <Navi />
+    <Routes>
+      <Route path="/" element={<List/>} />
+      <Route path="/new" element={<Update/>} />
+    </Routes>
+    </>
   );
 }
 
