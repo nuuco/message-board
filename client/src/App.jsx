@@ -9,8 +9,8 @@ function App() {
     <>
     <Navi />
     <Routes>
-      <Route path="/" element={<List/>} />
-      <Route path="/new" element={<Update/>} />
+      <Route path={"/"} element={<List/>} />
+      <Route path={"/new"} element={<Update/>} />
     </Routes>
     </>
   );
