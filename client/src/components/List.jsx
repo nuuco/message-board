@@ -1,28 +1,35 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import ListItem from "./ListItem";
-import axios from 'axios';
+import PageList from './PageList';
+//import { Routes, Route } from 'react-router-dom';
 
 function List() {
-
-    const handleOnClick = () => {
-        axios.get("/list")
-        .then((res) => console.log(res));
-    }
-    const makeListItems = () => {
-        const data = [
-            { title: "양희준", content: "코드스테이츠"},
-            { title: "심소영", content: "코드스테이츠"},
-            { title: "이유진", content: "코드스테이츠"}
-        ];
-
+    const [data, setDate] = useState([]);
+    const [page, setPage] = useState(1);
+    const makeListItems = (data = []) => {
         return data.map((item, idx) => {
             return <ListItem key={idx} title={item.title} content={item.content}/>
         })
     }
+    useEffect(() => {
+        axios.get(`api/list/?page=${page}`)
+        .then(res => setDate(res.data));
+    }, [ page ])
+    /*
+    const makePagination = (data = []) => {
+        return (
+            <Routes>
+                {data.map((item, index) => {
+                    return <Route key={index} path={`page${item.number}`} element={<PageList />} />
+                })}
+            </Routes>
+        )
+    }*/
     return (
         <>
-          {makeListItems()}
-          <button onClick={handleOnClick}>통신</button>
+          {makeListItems(data)}
+          <PageList setPage={setPage}/>
         </>
     )
 }
